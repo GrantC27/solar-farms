@@ -10,7 +10,7 @@ fi
 
 # Stop any existing containers
 echo "Stopping existing containers..."
-docker-compose down
+docker compose down
 
 # Remove existing volumes to ensure clean setup (optional - uncomment if needed)
 # echo "Removing existing volumes for clean setup..."
@@ -18,7 +18,7 @@ docker-compose down
 
 # Start the services
 echo "Starting services..."
-docker-compose up -d
+docker compose up -d
 
 echo "Waiting for InfluxDB to initialize (this may take a minute)..."
 sleep 60

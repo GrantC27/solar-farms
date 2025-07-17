@@ -28,9 +28,9 @@ if [ -f "requirements.txt" ]; then
 fi
 
 # Check if Docker is available for MQTT broker
-if command -v docker &> /dev/null && command -v docker-compose &> /dev/null; then
+if command -v docker &> /dev/null && command -v docker compose &> /dev/null; then
     echo "🐳 Starting MQTT broker with Docker..."
-    docker-compose up -d
+    docker compose up -d
     if [ $? -eq 0 ]; then
         echo "✅ MQTT broker started successfully"
         echo "   - MQTT broker: localhost:1883"
