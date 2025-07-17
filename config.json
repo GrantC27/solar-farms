@@ -19,6 +19,22 @@
         "telemetry_data": "solar_farms/{site_id}/telemetry",
         "status": "solar_farms/simulator/status"
     },
+    "influxdb": {
+        "url": "http://localhost:8086",
+        "token": "solar-farms-admin-token-super-secret-12345",
+        "org": "solar-farms",
+        "bucket": "solar_farms",
+        "query_range": "-5m"
+    },
+    "bigquery": {
+        "project_id": "worple91-ha",
+        "dataset_id": "solar_farms",
+        "table_id": "telemetry",
+        "batch_size": 150,
+        "transmission_interval_seconds": 60,
+        "service_account_path": "./service-account.json",
+        "service_account_info": null
+    },
     "logging": {
         "level": "INFO",
         "format": "%(asctime)s - %(levelname)s - %(message)s"
