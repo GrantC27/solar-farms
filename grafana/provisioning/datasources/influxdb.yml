@@ -1,0 +1,59 @@
+apiVersion: 1
+
+datasources:
+  - name: InfluxDB-v2
+    type: influxdb
+    access: proxy
+    url: http://influxdb:8086
+    jsonData:
+      version: Flux
+      organization: solar-farms
+      defaultBucket: solar_farms
+      tlsSkipVerify: true
+    secureJsonData:
+      token: solar-farms-admin-token-super-secret-12345
+    isDefault: true
+    editable: true
+
+  - name: InfluxDB-v2-ReadOnly
+    type: influxdb
+    access: proxy
+    url: http://influxdb:8086
+    jsonData:
+      version: Flux
+      organization: solar-farms
+      defaultBucket: solar_farms
+      tlsSkipVerify: true
+    secureJsonData:
+      # This will be replaced with the actual read-only token after initialization
+      token: solar-farms-admin-token-super-secret-12345
+    isDefault: false
+    editable: false
+
+  - name: InfluxDB-v2-Historical
+    type: influxdb
+    access: proxy
+    url: http://influxdb:8086
+    jsonData:
+      version: Flux
+      organization: solar-farms
+      defaultBucket: solar_farms_historical
+      tlsSkipVerify: true
+    secureJsonData:
+      token: solar-farms-admin-token-super-secret-12345
+    isDefault: false
+    editable: true
+
+  - name: InfluxDB-v2-Events
+    type: influxdb
+    access: proxy
+    url: http://influxdb:8086
+    jsonData:
+      version: Flux
+      organization: solar-farms
+      defaultBucket: solar_farms_events
+      tlsSkipVerify: true
+    secureJsonData:
+      token: solar-farms-admin-token-super-secret-12345
+    isDefault: false
+    editable: true

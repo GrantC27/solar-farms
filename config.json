@@ -1,0 +1,26 @@
+{
+    "mqtt": {
+        "broker": "localhost",
+        "port": 1883,
+        "username": null,
+        "password": null,
+        "qos": 1,
+        "retain_static": true
+    },
+    "simulation": {
+        "publish_interval_seconds": 30,
+        "number_of_farms": 150,
+        "fault_probability_range": [0.001, 0.01],
+        "maintenance_probability": 0.0001,
+        "maintenance_duration_hours": [1, 6]
+    },
+    "topics": {
+        "static_data": "solar_farms/{site_id}/static",
+        "telemetry_data": "solar_farms/{site_id}/telemetry",
+        "status": "solar_farms/simulator/status"
+    },
+    "logging": {
+        "level": "INFO",
+        "format": "%(asctime)s - %(levelname)s - %(message)s"
+    }
+}

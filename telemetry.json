@@ -1,0 +1,16 @@
+{
+    "timestamp": "2025-07-16T12:00:00Z",
+    "site_id": "site_001",
+    "ambient_temperature_c": 28.5,
+    "module_temperature_c": 35.2,
+    "irradiance_wm2": 850,
+    "energy_generated_kwh": 4200.5,
+    "power_output_kw": 4800,
+    "energy_utilised_kwh": 3900,
+    "energy_exported_kwh": 300,
+    "system_status": "online",
+    "inverter_status": "healthy",
+    "string_faults": 0,
+    "dc_voltage_v": 600,
+    "ac_voltage_v": 400
+}

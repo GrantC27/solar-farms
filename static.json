@@ -1,0 +1,10 @@
+{
+    "site_id": "site_001",
+    "site_name": "Cape Town Solar Park",
+    "latitude": -33.918861,
+    "longitude": 18.423300,
+    "country": "South Africa",
+    "timezone": "Africa/Johannesburg",
+    "installation_date": "2021-03-15",
+    "system_capacity_kw": 5000
+  }

@@ -1,0 +1,101 @@
+version: '3.8'
+
+services:
+  mosquitto:
+    image: eclipse-mosquitto:2.0
+    container_name: solar-farm-mqtt
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - mosquitto_data:/mosquitto/data
+      - mosquitto_logs:/mosquitto/log
+    restart: unless-stopped
+    networks:
+      - solar-farm-network
+
+  telegraf:
+    image: telegraf:alpine
+    container_name: solar-farm-telegraf
+    volumes:
+      - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
+      - telegraf_logs:/tmp
+    depends_on:
+      influxdb:
+        condition: service_healthy
+    restart: unless-stopped
+    environment:
+      - MQTT_BROKER=mosquitto
+      - MQTT_PORT=1883
+    networks:
+      - solar-farm-network
+
+  influxdb:
+    image: influxdb:alpine
+    container_name: influxdb
+    ports:
+      - "8086:8086"
+    environment:
+      # Initial setup for InfluxDB 2.x
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=admin
+      - DOCKER_INFLUXDB_INIT_PASSWORD=admin123456
+      - DOCKER_INFLUXDB_INIT_ORG=solar-farms
+      - DOCKER_INFLUXDB_INIT_BUCKET=solar_farms
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=solar-farms-admin-token-super-secret-12345
+      - DOCKER_INFLUXDB_INIT_RETENTION=30d
+    volumes:
+      - influxdb_data:/var/lib/influxdb2
+      - influxdb_config:/etc/influxdb2
+      - ./influxdb2-init:/docker-entrypoint-initdb.d
+    networks:
+      - solar-farm-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8086/ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+
+  grafana:
+    image: grafana/grafana
+    container_name: solar-farm-grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin123
+      - GF_INSTALL_PLUGINS=grafana-worldmap-panel
+    depends_on:
+      influxdb:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - solar-farm-network
+
+  mqtt-explorer:
+    image: smeagolworms4/mqtt-explorer:master
+    container_name: mqtt-explorer
+    ports:
+      - "4000:4000"
+    restart: unless-stopped
+    depends_on:
+      - mosquitto
+    networks:
+      - solar-farm-network
+
+volumes:
+  mosquitto_data:
+  mosquitto_logs:
+  telegraf_logs:
+  influxdb_data:
+  influxdb_config:
+  grafana_data:
+
+networks:
+  solar-farm-network:
+    driver: bridge
