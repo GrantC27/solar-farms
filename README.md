@@ -215,7 +215,8 @@ Pre-configured dashboards include:
 Web-based MQTT client for real-time message monitoring at `http://localhost:4000`.
 
 ### BI Dashboard with Superset
-Superset provides advanced analytics and visualization capabilities for the solar farm data, enabling insights into power generation and environmental conditions. An example of teh data that has been published can be found at: `http://superset.grant-campbell.work/superset/dashboard/1/`
+Superset provides advanced analytics and visualization capabilities for the solar farm data, enabling insights into power generation and environmental conditions. An example of teh data that has been published can be found at: 
+[Superset Dashboard](http://superset.grant-campbell.work/superset/dashboard/1/)
 
 Login credentials are: user/user
 
